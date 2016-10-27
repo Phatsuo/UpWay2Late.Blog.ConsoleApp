@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "UpWay2Late.Blog.ConsoleApp": {
+      "commandName": "Project",
+      "commandLineArgs": "hello"
+    }
+  }
+}
