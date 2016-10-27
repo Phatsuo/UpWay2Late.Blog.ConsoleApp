@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using Microsoft.Extensions.Configuration;
 
 namespace UpWay2Late.Blog.ConsoleApp
 {
@@ -6,7 +8,10 @@ namespace UpWay2Late.Blog.ConsoleApp
     {
         public static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var config = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json").Build();
+            var world = config["world"];
+
+            Console.WriteLine($"Hello {world}!");
 
             Console.ReadLine();
         }
