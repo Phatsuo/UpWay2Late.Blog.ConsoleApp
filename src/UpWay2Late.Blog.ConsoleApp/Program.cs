@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Threading.Tasks;
 using Microsoft.Extensions.CommandLineUtils;
 using Microsoft.Extensions.Configuration;
 
@@ -9,8 +10,25 @@ namespace UpWay2Late.Blog.ConsoleApp
     {
         public static void Main(string[] args)
         {
+            MainAsync(args).GetAwaiter().GetResult();
+        }
+
+        public static async Task MainAsync(string[] args)
+        {
+            await RunApplicationAsync(args);
+            
+            Console.ReadLine();
+        }
+
+        /// <summary>
+        /// Runs the application asynchronously.
+        /// </summary>
+        private static async Task RunApplicationAsync(string[] args)
+        {
             var config = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json").Build();
             var world = config["world"];
+
+            await DoSomethingAsync();
 
             var commandLineApplication = new CommandLineApplication
             {
@@ -46,8 +64,14 @@ namespace UpWay2Late.Blog.ConsoleApp
             });
 
             commandLineApplication.Execute(args);
+        }
 
-            Console.ReadLine();
+        /// <summary>
+        /// Async method to call for demonstration purposes only.
+        /// </summary>
+        private static async Task DoSomethingAsync()
+        {
+            await Task.Delay(1);
         }
     }
 }
